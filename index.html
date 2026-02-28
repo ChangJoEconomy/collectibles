@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>니케 소장품 강화 최적화 시뮬레이터</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>SR 소장품 계산기</h1>
+
+        <div class="info-box">
+            <h3>보유 비율 설정</h3>
+            <div class="kit-info">
+                <div class="kit-card">
+                    <div class="kit-card-header">
+                        <span class="item-tag">ITEM</span>
+                    </div>
+                    <div class="kit-card-image">
+                        <img src="src/beginner.png" alt="초급 관리키트">
+                    </div>
+                    <div class="kit-card-name">초심자용 관리 키트</div>
+                    <div class="kit-card-stats">
+                        <div class="kit-stat-row">
+                            <span class="stat-label">경험치</span>
+                            <span class="stat-value">200</span>
+                        </div>
+                        <div class="kit-stat-row">
+                            <span class="stat-label">보유 비율</span>
+                            <input type="number" id="supplyBasic" value="80" min="1" step="1">
+                        </div>
+                    </div>
+                </div>
+                <div class="kit-card">
+                    <div class="kit-card-header">
+                        <span class="item-tag">ITEM</span>
+                    </div>
+                    <div class="kit-card-image">
+                        <img src="src/intermediate.png" alt="중급 관리키트">
+                    </div>
+                    <div class="kit-card-name">중급자용 관리 키트</div>
+                    <div class="kit-card-stats">
+                        <div class="kit-stat-row">
+                            <span class="stat-label">경험치</span>
+                            <span class="stat-value">500</span>
+                        </div>
+                        <div class="kit-stat-row">
+                            <span class="stat-label">보유 비율</span>
+                            <input type="number" id="supplyMedium" value="15" min="1" step="1">
+                        </div>
+                    </div>
+                </div>
+                <div class="kit-card">
+                    <div class="kit-card-header">
+                        <span class="item-tag">ITEM</span>
+                    </div>
+                    <div class="kit-card-image">
+                        <img src="src/advanced.png" alt="상급 관리키트">
+                    </div>
+                    <div class="kit-card-name">상급자용 관리 키트</div>
+                    <div class="kit-card-stats">
+                        <div class="kit-stat-row">
+                            <span class="stat-label">경험치</span>
+                            <span class="stat-value">1000</span>
+                        </div>
+                        <div class="kit-stat-row">
+                            <span class="stat-label">보유 비율</span>
+                            <input type="number" id="supplyHigh" value="5" min="1" step="1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>강화 시작 단계 선택</h2>
+            <div class="stage-selector">
+                <label for="fromLevel">현재 레벨:</label>
+                <select id="fromLevel">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5" selected>5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                </select>
+                <span class="arrow">→</span>
+                <span class="target-level">15</span>
+                <button id="calculateBtn" class="btn-primary">최적 조합 계산</button>
+            </div>
+        </div>
+
+        <div class="section" id="resultsSection" style="display: none;">
+            <h2>15단계까지 최적 강화 경로</h2>
+            <div id="summaryBox" class="summary-box"></div>
+            <div id="topResults" class="top-results"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
