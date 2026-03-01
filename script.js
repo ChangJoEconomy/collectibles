@@ -1039,10 +1039,6 @@ function displayResults(results) {
                 <div class="value">${(fullPathResult.highUsed * 10).toFixed(0)}</div>
                 <div class="label">상급 키트</div>
             </div>
-            <div class="summary-item">
-                <div class="value">${fullPathResult.totalDays.toFixed(1)}</div>
-                <div class="label">총 기대 cost</div>
-            </div>
         </div>
         <div class="ratio-info" style="margin-top: 15px; padding: 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
             <div style="margin-bottom: 10px;">
@@ -1185,3 +1181,4 @@ function init() {
 
 // DOM 로드 후 초기화
 document.addEventListener('DOMContentLoaded', init);
+
