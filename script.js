@@ -2099,15 +2099,14 @@ function formatCoverageRepresentativePathHTML(representativePath) {
 }
 
 /**
- * 레벨 카드용 소형 사용량 표시 (재고 대비)
+ * 레벨 카드용 소형 사용량 표시
  */
-function createLevelUsageHTML(label, usedRaw, inventory, color) {
+function createLevelUsageHTML(label, usedRaw) {
     const usedVal = Math.round(usedRaw * 10);
-    const pct = inventory > 0 ? Math.min((usedVal / inventory) * 100, 100) : 0;
     return `
         <div class="detail-item">
             <span class="detail-label">${label}</span>
-            <span class="detail-value">${usedVal}개 <span style="color: #888; font-weight: 400; font-size: 0.85em;">/ ${inventory}</span></span>
+            <span class="detail-value">${usedVal}개</span>
         </div>
     `;
 }
@@ -2295,17 +2294,6 @@ function displayResults(results) {
             hasAnyLevelResults = true;
 
             for (const step of sectionSteps) {
-                const combos = levelResults[step.level] || [];
-                const branchCount = combos[0]?.adaptiveActionCount;
-                const branchDetailHTML = Number.isFinite(branchCount)
-                    ? `
-                                <div class="detail-item">
-                                    <span class="detail-label">상태별 분기</span>
-                                    <span class="detail-value">${branchCount}개 조합</span>
-                                </div>
-                    `
-                    : '';
-
                 sectionHTML += `
                 <div class="level-section" style="margin-bottom: 20px;">
                     <h3 style="color: #9ca3af; margin-bottom: 10px;">
@@ -2327,14 +2315,13 @@ function displayResults(results) {
                             <div style="font-size: 0.85rem; color: #888; margin-bottom: 8px;">대표 성공 경로 기준 사용량 (이 구간)</div>
                             <div style="font-size: 0.8rem; color: #6b7280; margin-bottom: 8px;">상위 n% 대표 성공 경로에서 실제로 사용된 구간 조합입니다.</div>
                             <div class="result-details">
-                                ${createLevelUsageHTML('초급', step.basicUsed, step.availableBasic * 10, '#3b82f6')}
-                                ${createLevelUsageHTML('중급', step.mediumUsed, step.availableMedium * 10, '#a855f7')}
-                                ${createLevelUsageHTML('상급', step.highUsed, step.availableHigh * 10, '#fbbf24')}
+                                ${createLevelUsageHTML('초급', step.basicUsed)}
+                                ${createLevelUsageHTML('중급', step.mediumUsed)}
+                                ${createLevelUsageHTML('상급', step.highUsed)}
                                 <div class="detail-item">
                                     <span class="detail-label">대성공 확률</span>
                                     <span class="detail-value">${(step.jumpRate * 100).toFixed(1)}%</span>
                                 </div>
-                                ${branchDetailHTML}
                             </div>
                         </div>
                     </div>
@@ -2385,18 +2372,12 @@ function displayResults(results) {
             const displayMediumUsed = representativePathStep ? representativePathStep.mediumUsed : combos[0].mediumUsed;
             const displayHighUsed = representativePathStep ? representativePathStep.highUsed : combos[0].highUsed;
             const displayJumpRate = representativePathStep ? representativePathStep.jumpRate : combos[0].jumpRate;
-            const displayBasicInventory = representativePathStep ? representativePathStep.availableBasic * 10 : supply.basic;
-            const displayMediumInventory = representativePathStep ? representativePathStep.availableMedium * 10 : supply.medium;
-            const displayHighInventory = representativePathStep ? representativePathStep.availableHigh * 10 : supply.high;
             const jumpRequiredBadgeHTML = isJumpRequired
                 ? '<span class="jump-required-badge">⚡ 대성공 필수</span>'
                 : '';
 
             const isRepresentativePathCard = isCoverageMode && representativePathStep != null;
             const isSingleAttemptCard = isCoverageMode && combos[0].displayAsSingleAttempt === true && !isRepresentativePathCard;
-            const unusedCoverageActionNoteHTML = isCoverageMode
-                ? `<div style="font-size: 0.8rem; color: #6b7280; margin-bottom: 8px;">현재 상태에서 바로 누를 대표 행동만 보여줍니다. 남은 키트는 이후 레벨용으로 보존됩니다.</div>`
-                : '';
             const coverageActionNoteHTML = isCoverageMode
                 ? (isRepresentativePathCard
                     ? `<div style="font-size: 0.8rem; color: #6b7280; margin-bottom: 8px;">상위 n% 대표 성공 경로에서 실제로 사용된 구간 조합입니다.</div>`
@@ -2406,10 +2387,6 @@ function displayResults(results) {
                                 <div class="detail-item">
                                     <span class="detail-label">대표 선택률</span>
                                     <span class="detail-value">${((combos[0].actionUseRate || 0) * 100).toFixed(1)}%</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">상태별 분기</span>
-                                    <span class="detail-value">${combos[0].adaptiveActionCount || 1}개 조합</span>
                                 </div>
             ` : '';
 
@@ -2444,15 +2421,15 @@ function displayResults(results) {
                             ${coverageActionNoteHTML}
                             <div class="result-details">
                                 ${isCoverageMode
-                    ? createLevelUsageHTML('초급', displayBasicUsed, displayBasicInventory, '#3b82f6')
+                    ? createLevelUsageHTML('초급', displayBasicUsed)
                     : `<div class="detail-item"><span class="detail-label">초급</span><span class="detail-value">${(displayBasicUsed * 10).toFixed(0)}개</span></div>`
                 }
                                 ${isCoverageMode
-                    ? createLevelUsageHTML('중급', displayMediumUsed, displayMediumInventory, '#a855f7')
+                    ? createLevelUsageHTML('중급', displayMediumUsed)
                     : `<div class="detail-item"><span class="detail-label">중급</span><span class="detail-value">${(displayMediumUsed * 10).toFixed(0)}개</span></div>`
                 }
                                 ${isCoverageMode
-                    ? createLevelUsageHTML('상급', displayHighUsed, displayHighInventory, '#fbbf24')
+                    ? createLevelUsageHTML('상급', displayHighUsed)
                     : `<div class="detail-item"><span class="detail-label">상급</span><span class="detail-value">${(displayHighUsed * 10).toFixed(0)}개</span></div>`
                 }
                                 <div class="detail-item">
