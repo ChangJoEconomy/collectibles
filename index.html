@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -8,10 +8,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>SR 소장품 계산기</h1>
-
         <div class="info-box">
-            <h3>보유 비율 설정</h3>
+            <h3>보유 비율</h3>
             <div class="kit-info">
                 <div class="kit-card">
                     <div class="kit-card-header">
@@ -74,34 +72,57 @@
         </div>
 
         <div class="section">
-            <h2>강화 시작 단계 선택</h2>
-            <div class="stage-selector">
-                <label for="fromLevel">현재 레벨:</label>
-                <select id="fromLevel">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5" selected>5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                    <option value="13">13</option>
-                    <option value="14">14</option>
-                </select>
-                <span class="arrow">→</span>
-                <span class="target-level">15</span>
+            <h3>계산 모드</h3>
+            <div class="mode-selector" role="group" aria-label="계산 모드 선택">
+                <button type="button" class="mode-option is-active" data-mode="average" aria-pressed="true">
+                    평균 최적화
+                </button>
+                <button type="button" class="mode-option" data-mode="coverage" aria-pressed="false">
+                    커버리지
+                </button>
+            </div>
+            <div id="modeHelp" class="mode-help" aria-live="polite"></div>
+            <input type="hidden" id="solveMode" value="average">
+        </div>
+
+        <div class="section">
+            <h3>강화 구간</h3>
+            <div class="stage-mode-selector" role="group" aria-label="강화 구간 선택">
+                <button type="button" class="stage-option is-active" data-stage-preset="5-15" aria-pressed="true">
+                    5-15
+                </button>
+                <button type="button" class="stage-option" data-stage-preset="5-10" aria-pressed="false">
+                    5-10
+                </button>
+                <button type="button" class="stage-option" data-stage-preset="10-15" aria-pressed="false">
+                    10-15
+                </button>
+                <button type="button" class="stage-option" data-stage-preset="custom" aria-pressed="false">
+                    커스텀
+                </button>
+            </div>
+            <div id="stageHelp" class="stage-help" aria-live="polite"></div>
+            <input type="hidden" id="stagePreset" value="5-15">
+
+            <div id="customStageControls" class="stage-custom-controls" hidden>
+                <div class="stage-field">
+                    <label for="fromLevel">시작 단계</label>
+                    <select id="fromLevel"></select>
+                </div>
+                <div class="stage-field">
+                    <label for="toLevel">도착 단계</label>
+                    <select id="toLevel"></select>
+                </div>
+            </div>
+
+            <div class="stage-action-row">
+                <div id="stageRangePreview" class="stage-range-preview">선택 구간: 5 → 15</div>
                 <button id="calculateBtn" class="btn-primary">최적 조합 계산</button>
             </div>
         </div>
 
         <div class="section" id="resultsSection" style="display: none;">
-            <h2>15단계까지 최적 강화 경로</h2>
+            <h2 id="resultsTitle">5 → 15 최적 강화 경로</h2>
             <div id="summaryBox" class="summary-box"></div>
             <div id="topResults" class="top-results"></div>
         </div>

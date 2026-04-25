@@ -1,4 +1,4 @@
-* {
+﻿* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -234,6 +234,72 @@ h3 {
     justify-content: center;
 }
 
+.mode-selector {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.stage-mode-selector {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.mode-option {
+    min-width: 180px;
+    padding: 12px 20px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.04);
+    color: #d1d5db;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+
+.stage-option {
+    min-width: 120px;
+    padding: 12px 18px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.04);
+    color: #d1d5db;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+
+.mode-option:hover {
+    transform: translateY(-1px);
+    border-color: rgba(110, 231, 183, 0.45);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.stage-option:hover {
+    transform: translateY(-1px);
+    border-color: rgba(251, 191, 36, 0.45);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.mode-option.is-active {
+    color: #ecfdf5;
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.22), rgba(59, 130, 246, 0.2));
+    border-color: rgba(110, 231, 183, 0.6);
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.28);
+}
+
+.stage-option.is-active {
+    color: #fffbeb;
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.22), rgba(59, 130, 246, 0.2));
+    border-color: rgba(251, 191, 36, 0.6);
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.28);
+}
+
 .stage-selector label {
     font-weight: 500;
 }
@@ -246,6 +312,65 @@ h3 {
     background: #2c3e50;
     color: #fff;
     cursor: pointer;
+}
+
+.mode-help {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #9ca3af;
+}
+
+.stage-help {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #9ca3af;
+}
+
+.stage-custom-controls {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 18px;
+}
+
+.stage-custom-controls[hidden] {
+    display: none;
+}
+
+.stage-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 180px;
+}
+
+.stage-field label {
+    font-size: 0.9rem;
+    color: #d1d5db;
+}
+
+.stage-field select {
+    padding: 10px 16px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: #2c3e50;
+    color: #fff;
+    cursor: pointer;
+}
+
+.stage-action-row {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
 }
 
 .arrow {
@@ -273,6 +398,18 @@ h3 {
 .summary-box h3 {
     color: #d1d5db;
     margin-bottom: 15px;
+}
+
+.coverage-banner {
+    margin-bottom: 18px;
+    padding: 16px 18px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.18), rgba(59, 130, 246, 0.18));
+    border: 1px solid rgba(110, 231, 183, 0.35);
+    color: #ecfdf5;
+    font-size: 1.05rem;
+    font-weight: 700;
+    text-align: center;
 }
 
 .summary-grid {
@@ -576,8 +713,27 @@ tr:hover {
         font-size: 1.8rem;
     }
     
+    .mode-selector,
+    .stage-mode-selector {
+        flex-direction: column;
+    }
+
+    .mode-option,
+    .stage-option {
+        width: 100%;
+    }
+
     .stage-selector {
         flex-direction: column;
+    }
+
+    .stage-custom-controls,
+    .stage-action-row {
+        flex-direction: column;
+    }
+
+    .stage-field {
+        width: 100%;
     }
     
     .kit-info {
@@ -663,4 +819,110 @@ tr:hover {
         height: auto !important;
         aspect-ratio: 320 / 180;
     }
+}
+/* 도달 불가능 배너 */
+.unreachable-banner {
+    margin-bottom: 18px;
+    padding: 30px 24px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(127, 29, 29, 0.2));
+    border: 1.5px solid rgba(239, 68, 68, 0.4);
+    text-align: center;
+}
+
+.unreachable-icon {
+    font-size: 2.5rem;
+    color: #f87171;
+    margin-bottom: 10px;
+    line-height: 1;
+}
+
+.unreachable-title {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #fca5a5;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+}
+
+.unreachable-detail {
+    font-size: 0.95rem;
+    color: #d1d5db;
+    line-height: 1.7;
+}
+
+/* 대성공 필수 배지 */
+.jump-required-badge {
+    display: inline-block;
+    margin-left: 10px;
+    padding: 3px 10px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #fbbf24;
+    background: rgba(251, 191, 36, 0.15);
+    border: 1px solid rgba(251, 191, 36, 0.4);
+    border-radius: 20px;
+    animation: jumpBadgePulse 2s ease-in-out infinite;
+    vertical-align: middle;
+}
+
+@keyframes jumpBadgePulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 4px rgba(251, 191, 36, 0.2); }
+    50% { opacity: 0.8; box-shadow: 0 0 10px rgba(251, 191, 36, 0.4); }
+}
+
+/* 재고 대비 사용량 바 */
+.inv-bar-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.inv-bar-row {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.inv-bar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.inv-bar-track {
+    position: relative;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    overflow: visible;
+}
+
+.inv-bar-inventory {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    border-radius: 4px;
+}
+
+.inv-bar-used {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    border-radius: 4px;
+    opacity: 0.7;
+    transition: width 0.5s ease;
+}
+
+.inv-bar-marker {
+    position: absolute;
+    top: -3px;
+    width: 2px;
+    height: 14px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 1px;
+    transform: translateX(-1px);
 }
